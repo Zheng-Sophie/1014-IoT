@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>50 Startups — MLR Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0f1117;
+      --surface: #1a1d2e;
+      --card: #20243a;
+      --border: #2a2d3e;
+      --accent: #7c6af7;
+      --accent2: #56cfb2;
+      --warn: #f7936a;
+      --text: #e2e8f0;
+      --muted: #8892a4;
+      --radius: 14px;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Inter", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      background: linear-gradient(135deg, #1a1d2e 0%, #12152a 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 40px 48px 36px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: "";
+      position: absolute;
+      top: -80px;
+      right: -80px;
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, rgba(124, 106, 247, .18) 0%, transparent 70%);
+    }
+
+    header::after {
+      content: "";
+      position: absolute;
+      bottom: -60px;
+      left: 60px;
+      width: 240px;
+      height: 240px;
+      background: radial-gradient(circle, rgba(86, 207, 178, .12) 0%, transparent 70%);
+    }
+
+    .header-badge {
+      display: inline-block;
+      background: rgba(124, 106, 247, .15);
+      border: 1px solid rgba(124, 106, 247, .35);
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 99px;
+      margin-bottom: 14px;
+    }
+
+    header h1 {
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 700;
+      letter-spacing: -.02em;
+      line-height: 1.2;
+    }
+
+    header h1 span {
+      color: var(--accent);
+    }
+
+    header p {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: .95rem;
+      max-width: 620px;
+      line-height: 1.6;
+    }
+
+    .header-chips {
+      margin-top: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 99px;
+      padding: 4px 14px;
+      font-size: .78rem;
+      color: var(--muted);
+    }
+
+    .chip strong {
+      color: var(--text);
+    }
+
+    /* ── Layout ── */
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+
+    /* ── Section ── */
+    section {
+      margin-bottom: 48px;
+    }
+
+    .section-title {
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-title::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    h2.section-title {
+      font-size: .7rem;
+    }
+
+    /* ── Card ── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      transition: border-color .2s;
+    }
+
+    .card:hover {
+      border-color: rgba(124, 106, 247, .4);
+    }
+
+    .card-title {
+      font-size: .8rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-bottom: 14px;
+    }
+
+    /* ── Grid ── */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 800px) {
+
+      .grid-2,
+      .grid-3,
+      .grid-4 {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 540px) {
+
+      .grid-2,
+      .grid-3,
+      .grid-4 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ── Stat card ── */
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px 20px;
+      transition: transform .2s, border-color .2s;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(124, 106, 247, .45);
+    }
+
+    .stat-label {
+      font-size: .72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .stat-value {
+      font-size: 1.75rem;
+      font-weight: 700;
+      letter-spacing: -.02em;
+    }
+
+    .stat-value.accent {
+      color: var(--accent);
+    }
+
+    .stat-value.accent2 {
+      color: var(--accent2);
+    }
+
+    .stat-value.warn {
+      color: var(--warn);
+    }
+
+    .stat-value.green {
+      color: #68d391;
+    }
+
+    .stat-sub {
+      font-size: .75rem;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    /* ── Metric card ── */
+    .metric-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 20px 18px;
+      text-align: center;
+      transition: transform .2s, border-color .2s;
+    }
+
+    .metric-card:hover {
+      transform: translateY(-3px);
+    }
+
+    .metric-label {
+      font-size: .72rem;
+      color: var(--muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      margin-bottom: 10px;
+    }
+
+    .metric-value {
+      font-size: 1.65rem;
+      font-weight: 700;
+    }
+
+    .metric-value.purple {
+      color: var(--accent);
+    }
+
+    .metric-value.teal {
+      color: var(--accent2);
+    }
+
+    .metric-value.orange {
+      color: var(--warn);
+    }
+
+    .metric-value.green {
+      color: #68d391;
+    }
+
+    /* ── Tables ── */
+    .table-wrap {
+      overflow-x: auto;
+      border-radius: 10px;
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .82rem;
+    }
+
+    .data-table th {
+      background: var(--card);
+      color: var(--muted);
+      font-weight: 600;
+      font-size: .72rem;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      padding: 10px 14px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .data-table td {
+      padding: 9px 14px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    .data-table tbody tr:hover {
+      background: rgba(124, 106, 247, .06);
+    }
+
+    .data-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* ── Charts ── */
+    .chart-img {
+      width: 100%;
+      border-radius: 10px;
+      display: block;
+    }
+
+    /* ── Best scheme banner ── */
+    .best-banner {
+      background: linear-gradient(135deg, rgba(124, 106, 247, .15), rgba(86, 207, 178, .1));
+      border: 1px solid rgba(124, 106, 247, .35);
+      border-radius: var(--radius);
+      padding: 22px 28px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .best-badge {
+      background: var(--accent);
+      color: #fff;
+      font-size: .7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      padding: 5px 14px;
+      border-radius: 99px;
+      white-space: nowrap;
+    }
+
+    .best-text {
+      flex: 1;
+    }
+
+    .best-text h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+    }
+
+    .best-text p {
+      font-size: .82rem;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .best-text .feat-pill {
+      display: inline-block;
+      background: rgba(86, 207, 178, .12);
+      border: 1px solid rgba(86, 207, 178, .3);
+      color: var(--accent2);
+      border-radius: 99px;
+      padding: 2px 10px;
+      font-size: .75rem;
+      font-weight: 500;
+      margin: 4px 3px 0 0;
+    }
+
+    /* ── Sample prediction ── */
+    .predict-card {
+      background: linear-gradient(135deg, rgba(86, 207, 178, .1), rgba(124, 106, 247, .1));
+      border: 1px solid rgba(86, 207, 178, .3);
+      border-radius: var(--radius);
+      padding: 28px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .predict-inputs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .pi {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 16px;
+    }
+
+    .pi .lbl {
+      font-size: .68rem;
+      color: var(--muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .pi .val {
+      font-size: .95rem;
+      font-weight: 600;
+      margin-top: 2px;
+    }
+
+    .predict-result {
+      text-align: center;
+    }
+
+    .predict-result .lbl {
+      font-size: .72rem;
+      color: var(--muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      margin-bottom: 6px;
+    }
+
+    .predict-result .amount {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--accent2);
+      letter-spacing: -.02em;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 24px;
+      color: var(--muted);
+      font-size: .78rem;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── Animations ── */
+    .fade-in {
+      animation: fadeIn .5s ease both;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="header-badge">CRISP-DM · Multiple Linear Regression</div>
+    <h1>50 Startups <span>Profit Predictor</span></h1>
+    <p>Feature selection comparison across five schemes — Exhaustive, RFE, SFS, Lasso, and SBS — evaluated via
+      cross-validation to identify the best model for predicting startup profit.</p>
+    <div class="header-chips">
+      <div class="chip"><strong>Dataset:</strong> 50 rows · 5 cols</div>
+      <div class="chip"><strong>Algorithm:</strong> Linear Regression</div>
+      <div class="chip"><strong>Schemes:</strong> 5 feature selection methods</div>
+      <div class="chip"><strong>CV:</strong> 5-Fold KFold</div>
+      <div class="chip"><strong>Split:</strong> 80 / 20</div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- Phase 2: Data Overview -->
+    <section class="fade-in">
+      <h2 class="section-title">Phase 2 — Data Understanding</h2>
+      <div class="grid-4" style="margin-bottom:20px;">
+        <div class="stat-card">
+          <div class="stat-label">Rows</div>
+          <div class="stat-value accent">{{ eda.shape[0] }}</div>
+          <div class="stat-sub">startup records</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Columns</div>
+          <div class="stat-value accent2">{{ eda.shape[1] }}</div>
+          <div class="stat-sub">features + target</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Missing Values</div>
+          <div class="stat-value green">0</div>
+          <div class="stat-sub">clean dataset</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Duplicates</div>
+          <div class="stat-value green">{{ eda.duplicates }}</div>
+          <div class="stat-sub">no duplicates</div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">First 5 Rows</div>
+          <div class="table-wrap">{{ eda.head | safe }}</div>
+        </div>
+        <div class="card" style="display:flex; flex-direction:column; gap:14px;">
+          <div>
+            <div class="card-title">State Distribution</div>
+            {% for state, count in eda.state_dist.items() %}
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+              <span style="width:110px; font-size:.82rem;">{{ state }}</span>
+              <div style="flex:1; background:var(--border); border-radius:99px; height:7px;">
+                <div
+                  style="width:{{ (count/50*100)|round }}%; background:var(--accent); height:7px; border-radius:99px;">
+                </div>
+              </div>
+              <span style="font-size:.8rem; color:var(--muted); width:24px; text-align:right;">{{ count }}</span>
+            </div>
+            {% endfor %}
+          </div>
+          <div>
+            <div class="card-title">Missing Values</div>
+            <div class="table-wrap">{{ eda.missing | safe }}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-2" style="margin-top:20px;">
+        <div class="card">
+          <div class="card-title">Num Features vs PMSE</div>
+          <img class="chart-img" src="data:image/png;base64,{{ chart_pmse }}" alt="PMSE Line Chart" />
+        </div>
+        <div class="card">
+          <div class="card-title">Num Features vs R-squared</div>
+          <img class="chart-img" src="data:image/png;base64,{{ chart_r2 }}" alt="R² Line Chart" />
+        </div>
+      </div>
+    </section>
+
+    <!-- Phase 3: Data Prep -->
+    <section class="fade-in">
+      <h2 class="section-title">Phase 3 — Data Preparation</h2>
+      <div class="grid-3">
+        <div class="stat-card">
+          <div class="stat-label">Training Samples</div>
+          <div class="stat-value accent">{{ split.train }}</div>
+          <div class="stat-sub">80% of dataset</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Testing Samples</div>
+          <div class="stat-value accent2">{{ split.test }}</div>
+          <div class="stat-sub">20% of dataset</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">CV Strategy</div>
+          <div class="stat-value" style="font-size:1.3rem;">5-Fold</div>
+          <div class="stat-sub">KFold, shuffle, seed=42</div>
+        </div>
+      </div>
+      <div class="card" style="margin-top:20px; font-size:.82rem; color:var(--muted); line-height:1.75;">
+        <div class="card-title">Preprocessing Pipeline</div>
+        <p>
+          <strong style="color:var(--text);">Numeric features</strong> (R&amp;D Spend, Administration, Marketing Spend):
+          <code
+            style="background:var(--card); padding:1px 6px; border-radius:4px; font-size:.78rem;">SimpleImputer(mean)</code>
+          →
+          <code
+            style="background:var(--card); padding:1px 6px; border-radius:4px; font-size:.78rem;">StandardScaler</code>
+        </p>
+        <p style="margin-top:8px;">
+          <strong style="color:var(--text);">Categorical feature</strong> (State):
+          <code
+            style="background:var(--card); padding:1px 6px; border-radius:4px; font-size:.78rem;">SimpleImputer(most_frequent)</code>
+          →
+          <code
+            style="background:var(--card); padding:1px 6px; border-radius:4px; font-size:.78rem;">OneHotEncoder(drop='first')</code>
+        </p>
+      </div>
+    </section>
+
+    <!-- Phase 4: Feature Selection -->
+    <section class="fade-in">
+      <h2 class="section-title">Phase 4 — Feature Selection Comparison</h2>
+
+      <div class="grid-2" style="margin-bottom:20px;">
+        <div class="card">
+          <div class="card-title">CV RMSE by Scheme</div>
+          <img class="chart-img" src="data:image/png;base64,{{ chart_scheme }}" alt="Scheme Comparison" />
+        </div>
+        <div class="card">
+          <div class="card-title">Results Table</div>
+          <div class="table-wrap">{{ comp_table | safe }}</div>
+
+          <div class="best-banner" style="margin-top:18px;">
+            <div class="best-badge">🏆 Best</div>
+            <div class="best-text">
+              <h3>{{ best_scheme }} Selected</h3>
+              <p>Winning feature set:</p>
+              {% for f in best_features %}
+              <span class="feat-pill">{{ f }}</span>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Phase 5: Evaluation -->
+    <section class="fade-in">
+      <h2 class="section-title">Phase 5 — Model Evaluation (Hold-out Test Set)</h2>
+
+      <div class="grid-4" style="margin-bottom:20px;">
+        <div class="metric-card">
+          <div class="metric-label">MAE</div>
+          <div class="metric-value teal">${{ "{:,.2f}".format(metrics.mae) }}</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">MSE</div>
+          <div class="metric-value orange">${{ "{:,.0f}".format(metrics.mse) }}</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">RMSE</div>
+          <div class="metric-value purple">${{ "{:,.2f}".format(metrics.rmse) }}</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">R²</div>
+          <div class="metric-value green">{{ metrics.r2 }}</div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">Actual vs Predicted Profit</div>
+          <img class="chart-img" src="data:image/png;base64,{{ chart_scatter }}" alt="Actual vs Predicted" />
+        </div>
+        <div class="card">
+          <div class="card-title">Prediction Results (Test Set)</div>
+          <div class="table-wrap">{{ pred_table | safe }}</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Phase 6: Deployment -->
+    <section class="fade-in">
+      <h2 class="section-title">Phase 6 — Deployment</h2>
+      <div class="predict-card">
+        <div>
+          <div
+            style="font-size:.72rem; color:var(--muted); font-weight:600; text-transform:uppercase; letter-spacing:.1em; margin-bottom:12px;">
+            Sample New Startup Inputs</div>
+          <div class="predict-inputs">
+            <div class="pi">
+              <div class="lbl">R&amp;D Spend</div>
+              <div class="val">$150,000</div>
+            </div>
+            <div class="pi">
+              <div class="lbl">Administration</div>
+              <div class="val">$120,000</div>
+            </div>
+            <div class="pi">
+              <div class="lbl">Marketing Spend</div>
+              <div class="val">$250,000</div>
+            </div>
+            <div class="pi">
+              <div class="lbl">State</div>
+              <div class="val">California</div>
+            </div>
+          </div>
+        </div>
+        <div class="predict-result">
+          <div class="lbl">Predicted Profit</div>
+          <div class="amount">${{ "{:,.2f}".format(sample_pred) }}</div>
+        </div>
+      </div>
+      <p style="margin-top:14px; font-size:.78rem; color:var(--muted);">
+        Model serialized to <code
+          style="background:var(--card); padding:1px 6px; border-radius:4px;">startup_profit_model.pkl</code> via
+        <strong>joblib</strong>.
+        Best scheme: <strong style="color:var(--accent);">{{ best_scheme }}</strong> |
+        Features used: <strong style="color:var(--accent2);">{{ best_features | join(", ") }}</strong>
+      </p>
+    </section>
+
+  </main>
+
+  <footer>
+    50 Startups · Multiple Linear Regression Dashboard · CRISP-DM Framework
+  </footer>
+
+</body>
+
+</html>
