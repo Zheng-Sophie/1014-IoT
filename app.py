@@ -1,4 +1,4 @@
-import io
+import io, os
 import base64
 import pandas as pd
 import numpy as np
@@ -330,4 +330,5 @@ def index():
 
 
 if __name__ == "__main__":
-    app.run(debug=False)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, debug=False)
