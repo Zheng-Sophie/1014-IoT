@@ -4,6 +4,10 @@ A CRISP-DM structured machine learning project that predicts startup profit usin
 
 ---
 
+demo Page：https://50-startups-mlr.onrender.com
+<img width="1160" height="380" alt="image" src="https://github.com/user-attachments/assets/49305ca7-8629-48bb-b503-f00047864285" />
+
+
 ## Project Structure
 
 ```
